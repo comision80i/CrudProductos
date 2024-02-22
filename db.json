@@ -1,0 +1,16 @@
+{
+  "productos": [
+    {
+      "id": "b451",
+      "title": "Coca Cola",
+      "description": "alguna descripcion",
+      "category": "Bebidas"
+    },
+    {
+      "id": "2666",
+      "title": "Pepsi",
+      "description": "alguna descripcion",
+      "category": "Bebidas"
+    }
+  ]
+}
