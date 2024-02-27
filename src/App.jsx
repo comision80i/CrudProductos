@@ -5,7 +5,7 @@ import Home from "./Components/pages/Home";
 import AcercaDeNosotros from "./Components/pages/AcercaDeNosotros";
 import Administracion from "./Components/pages/Administracion";
 import CrearProducto from "./Components/sections/CrearProducto";
-
+import Editar from "./Components/sections/Editar";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
             <Route path="/acercadenosotros" element={<AcercaDeNosotros />} />
             <Route path="/administracion" element={<Administracion />} />
             <Route path="/crear-producto" element={<CrearProducto/>}/>
+            <Route path="/editar/:id" element={<Editar/>}/>
           </Routes>
         </main>
         <footer className="m0 p0">

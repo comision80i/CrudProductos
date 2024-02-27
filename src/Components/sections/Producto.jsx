@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line react/prop-types
 import { Button } from "react-bootstrap";
+import {useNavigate} from 'react-router-dom';
 
 const Producto = ({ producto }) => {
+  const navigate=useNavigate();
   return (
     <>
       <tr>
@@ -11,8 +13,12 @@ const Producto = ({ producto }) => {
         <td>{producto.description}</td>
         <td>{producto.category}</td>
         <td className="d-flex justify-content-around">
-          <Button type="button" variant="warning">Editar</Button>
-          <Button type="button" variant="danger">Eliminar</Button>
+          <Button type="button" variant="warning" onClick={()=>{
+            navigate(`/editar/${producto.id}`)
+          }}>Editar</Button>
+          <Button type="button" variant="danger" onClick={()=>{
+            console.log("Desde boton eliminar");
+          }}>Eliminar</Button>
         </td>
       </tr>
     </>

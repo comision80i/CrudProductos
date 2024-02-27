@@ -1,16 +1,16 @@
 {
   "productos": [
     {
-      "id": "b451",
-      "title": "Coca Cola",
-      "description": "alguna descripcion",
-      "category": "Bebidas"
+      "title": "Coca Cola 3lts",
+      "description": "Coca Cola 3lts descartable",
+      "category": "Bebidas",
+      "id": "b451"
     },
     {
-      "id": "2666",
-      "title": "Pepsi",
-      "description": "alguna descripcion",
-      "category": "Bebidas"
+      "title": "Pepsi 2.25lts",
+      "description": "Pepsi tradicional descartable",
+      "category": "Bebidas",
+      "id": "2666"
     }
   ]
 }
