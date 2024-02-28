@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Producto from "./Producto";
+import ModalEditar from "./ModalEditar";
 
 const ListadoProductos = () => {
   const [productos, setProductos] = useState([]);
+  const [show, setShow] = useState(false);
+  const [prodEdit, setProdEdit] = useState(undefined);
 
+  const handleClose = () => {
+    setProdEdit(undefined);
+    setShow(false);
+  };
+  const handleShow = (prod) => {
+    setProdEdit(prod);
+    setShow(true);
+  };
   const API = import.meta.env.VITE_API;
 
   const getProductos = async () => {
@@ -28,28 +39,38 @@ const ListadoProductos = () => {
 
   //console.log("State Productos-->", productos);
   return (
-    <div className="container-fluid">
+    <>
+      <ModalEditar show={show} handleClose={handleClose} producto={prodEdit} getProductos={getProductos}/>
+      <div className="container-fluid">
         <div className="text-center">
-        <h2>Listado Productos</h2>
+          <h2>Listado Productos</h2>
         </div>
-     
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Categoria</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productos.map((element) => {
-            return <Producto producto={element} key={element.id} />;
-          })}
-        </tbody>
-      </Table>
-    </div>
+      <div className='table-responsive'>
+        <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Titulo</th>
+              <th>Descripcion</th>
+              <th>Categoria</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productos.map((element) => {
+              return (
+                <Producto
+                  producto={element}
+                  handleShow={handleShow}
+                  key={element.id}
+                />
+              );
+            })}
+          </tbody>
+        </Table>
+        </div>
+      </div>
+    </>
   );
 };
 

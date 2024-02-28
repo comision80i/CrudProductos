@@ -1,6 +1,4 @@
-//import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-//import { validarCategoria } from "../../helpers/validaciones";
 import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -84,7 +82,7 @@ const Editar = () => {
                 text: "se actualizo el producto correctamente",
                 icon: "success",
               });
-              navigate('/administracion')
+              navigate("/administracion");
             }
           } catch (error) {
             console.log("ERROR-->", error);
@@ -109,8 +107,8 @@ const Editar = () => {
   useEffect(() => {
     if (producto !== undefined) {
       formik.setFieldValue("title", producto.title, true);
-      formik.setFieldValue('description', producto.description, true);
-      formik.setFieldValue('category', producto.category, true);
+      formik.setFieldValue("description", producto.description, true);
+      formik.setFieldValue("category", producto.category, true);
     }
   }, [producto]);
   return (
