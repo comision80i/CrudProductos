@@ -1,16 +1,28 @@
 {
   "productos": [
     {
-      "id": "b451",
-      "title": "Coca Cola",
-      "description": "alguna descripcion",
-      "category": "Bebidas"
+      "title": "Coca Cola 3lts",
+      "description": "Coca Cola 3lts descartable",
+      "category": "Bebidas",
+      "id": "b451"
     },
     {
-      "id": "2666",
-      "title": "Pepsi",
-      "description": "alguna descripcion",
-      "category": "Bebidas"
+      "title": "Pepsi 2.5lts",
+      "description": "Pepsi tradicional descartable de 2.5lts",
+      "category": "Bebidas",
+      "id": "2666"
+    },
+    {
+      "id": "e122",
+      "title": "Gallo Oro",
+      "description": "Arroz Gallo oro x 1kgs",
+      "category": "Alimentos"
+    },
+    {
+      "id": "6d04",
+      "title": "Luchetti Tallarin",
+      "description": "Fideos Luchetti Tallarin x 500grs",
+      "category": "Alimentos"
     }
   ]
 }

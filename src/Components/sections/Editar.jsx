@@ -1,23 +1,34 @@
-//import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-//import { validarCategoria } from "../../helpers/validaciones";
 import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import Swal from 'sweetalert2'
-import {useNavigate} from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const CrearProducto = () => {
-  //los productos van a tener las sig prop, titulo, descripcion, categoria, ademas va a tener un identificador unico;
-  /*const [title, setTitle]=useState('');
-  const [description, setDescription]=useState('');
-  const [category, setCategory]=useState('');*/
+const Editar = () => {
+  const [producto, setProducto] = useState(undefined);
 
+  const { id } = useParams();
   //UTILIZAMOS LA VARIABLE DE ENTORNO
   const API = import.meta.env.VITE_API;
 
+  const getProducto = async () => {
+    try {
+      const { data } = await axios.get(`${API}/productos/${id}`);
+      setProducto(data);
+    } catch (error) {
+      console.log("Error-->", error);
+    }
+  };
+  useEffect(() => {
+    console.log("Id del producto a editar-->", id);
+    getProducto();
+  }, []);
+
   //utilizamos useNavigate de react router dom
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   //inicio config formik
   const ProductoSchema = Yup.object().shape({
     title: Yup.string()
@@ -45,18 +56,18 @@ const CrearProducto = () => {
     onSubmit: (values) => {
       console.log("Values de Formik-->", values);
       Swal.fire({
-        title: "Estas seguro de guardar este producto?",
-        
+        title: "Estas seguro de editar este producto?",
+
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Guardar"
+        confirmButtonText: "Guardar",
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const response = await fetch(`${API}/productos`, {
-              method: "POST",
+            const response = await fetch(`${API}/productos/${id}`, {
+              method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
@@ -64,25 +75,23 @@ const CrearProducto = () => {
             });
             //console.log("RESPONSE", response);
             //console.log(response.status);
-            if (response.status === 201) {
-              formik.resetForm();
+            if (response.status === 200) {
+              //formik.resetForm();
               Swal.fire({
                 title: "Exito!",
-                text: "se creo un nuevo producto",
-                icon: "success"
+                text: "se actualizo el producto correctamente",
+                icon: "success",
               });
-              navigate('/administracion')
+              navigate("/administracion");
             }
           } catch (error) {
             console.log("ERROR-->", error);
-          }         
+          }
         }
       });
-     
-     
     },
   });
-// fin config formik
+  // fin config formik
 
   /*const handleSubmit=(e)=>{
  e.preventDefault();
@@ -94,12 +103,22 @@ const CrearProducto = () => {
  };
  console.log("###Nuevo Producto--> ", nuevoProducto);
 }*/
+
+  useEffect(() => {
+    if (producto !== undefined) {
+      formik.setFieldValue("title", producto.title, true);
+      formik.setFieldValue("description", producto.description, true);
+      formik.setFieldValue("category", producto.category, true);
+    }
+  }, [producto]);
   return (
     <div className="container py-3 my-3">
-      <Button variant="secondary" onClick={()=>navigate(-1)}>Atras</Button>
+      <Button variant="secondary" onClick={() => navigate(-1)}>
+        Atras
+      </Button>
       <div className="text-center">
         {" "}
-        <h2>Crear Productos</h2>
+        <h2>Editar Producto</h2>
       </div>
 
       <Form onSubmit={formik.handleSubmit}>
@@ -214,4 +233,4 @@ const CrearProducto = () => {
   );
 };
 
-export default CrearProducto;
+export default Editar;
