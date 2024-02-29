@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Card, Button, Col } from "react-bootstrap";
-
+import imagen2 from "../../assets/react.svg";
 const CarProducto = ({ producto }) => {
   return (
     <Col xs={12} md={6}>
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
+        <Card.Img variant="top" src={imagen2} />
         <Card.Body>
           <Card.Title>{producto.title}</Card.Title>
           <Card.Text>

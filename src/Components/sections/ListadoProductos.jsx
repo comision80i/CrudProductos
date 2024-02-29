@@ -40,34 +40,40 @@ const ListadoProductos = () => {
   //console.log("State Productos-->", productos);
   return (
     <>
-      <ModalEditar show={show} handleClose={handleClose} producto={prodEdit} getProductos={getProductos}/>
+      <ModalEditar
+        show={show}
+        handleClose={handleClose}
+        producto={prodEdit}
+        getProductos={getProductos}
+      />
       <div className="container-fluid">
         <div className="text-center">
           <h2>Listado Productos</h2>
         </div>
-      <div className='table-responsive'>
-        <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Titulo</th>
-              <th>Descripcion</th>
-              <th>Categoria</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productos.map((element) => {
-              return (
-                <Producto
-                  producto={element}
-                  handleShow={handleShow}
-                  key={element.id}
-                />
-              );
-            })}
-          </tbody>
-        </Table>
+        <div className="table-responsive">
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Categoria</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.map((element) => {
+                return (
+                  <Producto
+                    producto={element}
+                    handleShow={handleShow}
+                    key={element.id}
+                    getProductos={getProductos}
+                  />
+                );
+              })}
+            </tbody>
+          </Table>
         </div>
       </div>
     </>
