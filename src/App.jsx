@@ -7,10 +7,32 @@ import Administracion from "./Components/pages/Administracion";
 import CrearProducto from "./Components/sections/CrearProducto";
 import Editar from "./Components/sections/Editar";
 import ErrorPage from "./Components/pages/ErrorPage";
-
+import UserContext from "./Components/UserContext";
+import { useEffect, useState } from "react";
 function App() {
+  const [currentUser, setCurrentUser]=useState(null);
+  const saveAuth=(auth)=>{
+    sessionStorage.setItem("session", JSON.stringify(auth))
+  };
+
+  const getAuth=()=>{
+    const session=JSON.parse(sessionStorage.getItem('session'));
+    return session;
+  };
+
+  const removeAuth=()=>{
+    sessionStorage.removeItem("session");
+  }
+  useEffect(()=>{
+    setCurrentUser(getAuth());
+    return()=>{
+      setCurrentUser(null);
+    }
+  },[])
+
+  console.log("CurrentUser-->", currentUser);
   return (
-    <>
+    <UserContext.Provider value={{currentUser, setCurrentUser, saveAuth, getAuth, removeAuth}}>
       <BrowserRouter>
         <header>
           <NavBar />
@@ -29,7 +51,7 @@ function App() {
           <Foot />
         </footer>
       </BrowserRouter>
-    </>
+    </UserContext.Provider>
   );
 }
 
