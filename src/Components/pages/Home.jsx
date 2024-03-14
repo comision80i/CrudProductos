@@ -4,6 +4,8 @@ import axios from "axios";
 import CarProducto from "../sections/CarProducto";
 
 const Home = () => {
+  
+
   const [productos, setProductos] = useState([]);
 
   const API = import.meta.env.VITE_API;
@@ -27,7 +29,7 @@ const Home = () => {
       setProductos([]);
     };
   }, []);
-
+  
   return (
     <>
       <div className="text-center">
