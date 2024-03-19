@@ -6,8 +6,12 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Swal from 'sweetalert2'
 import {useNavigate} from "react-router-dom";
-
+//import UserContext from "../../Context/UserContext";
+//import { useContext } from "react";
+import axios from "axios";
 const CrearProducto = () => {
+  //Esto se utiliza para la configuracion del header authorization en fetch
+  //const {currentUser}=useContext(UserContext);
   //los productos van a tener las sig prop, titulo, descripcion, categoria, ademas va a tener un identificador unico;
   /*const [title, setTitle]=useState('');
   const [description, setDescription]=useState('');
@@ -55,13 +59,18 @@ const CrearProducto = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const response = await fetch(`${API}/productos`, {
+            //OPCION CON FETCH INCLUIDO EL HEADER AUTHORIZATION
+            /*const response = await fetch(`${API}/products`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${currentUser.token}`
               },
               body: JSON.stringify(values),
-            });
+            });*/
+
+            //OPCION CON AXIOS YA CONFIGURA EL HEADER AUTHORIZATION
+            const response=await axios.post(`${API}/products`, values);
             //console.log("RESPONSE", response);
             //console.log(response.status);
             if (response.status === 201) {
