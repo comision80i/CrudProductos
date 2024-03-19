@@ -2,9 +2,9 @@
 // eslint-disable-next-line react/prop-types
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import BorrarProducto from "./BorrarProducto/BorrarProducto";
+//import BorrarProducto from "./BorrarProducto/BorrarProducto";
 import Swal from "sweetalert2";
-import axios from "axios";
+//import axios from "axios";
 
 const Producto = ({ producto, handleShow, getProductos }) => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Producto = ({ producto, handleShow, getProductos }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await fetch(`${API}/productos/` + producto.id, {
+          await fetch(`${API}/productos/` + producto._id, {
             method: "DELETE",
           });
           getProductos();
@@ -40,7 +40,7 @@ const Producto = ({ producto, handleShow, getProductos }) => {
   return (
     <>
       <tr>
-        <td>{producto.id}</td>
+        <td>{producto._id}</td>
         <td>{producto.title}</td>
         <td>{producto.description}</td>
         <td>{producto.category}</td>
@@ -49,7 +49,7 @@ const Producto = ({ producto, handleShow, getProductos }) => {
             type="button"
             variant="warning"
             onClick={() => {
-              navigate(`/editar/${producto.id}`);
+              navigate(`/editar/${producto._id}`);
             }}
           >
             Editar
