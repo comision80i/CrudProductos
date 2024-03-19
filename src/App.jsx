@@ -9,7 +9,7 @@ import Editar from "./Components/sections/Editar";
 import ErrorPage from "./Components/pages/ErrorPage";
 import UserContext from "./Context/UserContext";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const SaveAuth=(auth)=>{
@@ -33,6 +33,16 @@ function App() {
     }
 
   },[])
+
+  useEffect(()=>{
+    if (currentUser!==undefined) {
+      axios.defaults.headers.common["Authorization"]=`Bearer ${currentUser.token}`;
+    }else{
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  },[currentUser]);
+
+
   return (
     <>
       <UserContext.Provider value={{ currentUser, setCurrentUser, SaveAuth, GetAuth, RemoveAuth }}>
