@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line react/prop-types
+import  axios  from "axios";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 //import BorrarProducto from "./BorrarProducto/BorrarProducto";
@@ -22,9 +23,10 @@ const Producto = ({ producto, handleShow, getProductos }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await fetch(`${API}/productos/` + producto._id, {
+          /*await fetch(`${API}/productos/` + producto._id, {
             method: "DELETE",
-          });
+          });*/
+          await axios.delete(`${API}/products/${producto._id}`)
           getProductos();
         } catch (error) {
           console.log("ERROR-->", error);
