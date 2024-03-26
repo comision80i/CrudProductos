@@ -12,8 +12,8 @@ const Home = () => {
 
   const getProductos = async () => {
     try {
-      const response=await axios.get(`${API}/productos`);
-      console.log("RESPONSE-AXIOS-->", response);
+      const response=await axios.get(`${API}/products`);
+      //console.log("RESPONSE-AXIOS-->", response);
       /*const products=response.data;
       setProductos(productos);*/
       setProductos(response.data);
