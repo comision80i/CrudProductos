@@ -5,11 +5,11 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import UserContext from "../../Context/UserContext";
-import { useContext } from "react";
-
+import { useContext, useState } from "react";
+import Swal from "sweetalert2";
 const Login = ({ isOpen, handleClose }) => {
   const { setCurrentUser, SaveAuth } = useContext(UserContext);
-
+  const [isLoading, setIsLoading] = useState(false);
   const API = import.meta.env.VITE_API;
 
   const LoginSchema = Yup.object().shape({
@@ -32,6 +32,16 @@ const Login = ({ isOpen, handleClose }) => {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
+      setIsLoading(true);
+      Swal.fire({
+        title: "Iniciando sesión...!",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+      });
       //console.log("VALUES-->", values);
       try {
         const response = await axios.post(`${API}/users/login`, values);
@@ -40,13 +50,19 @@ const Login = ({ isOpen, handleClose }) => {
           SaveAuth(response.data);
           setCurrentUser(response.data);
           formik.resetForm();
+          setIsLoading(false);
+          Swal.close();
           handleClose();
         } else {
+          setIsLoading(false);
+          Swal.close();
           alert("Ocurrio un error");
         }
       } catch (error) {
+        setIsLoading(false);
+        Swal.close();
         alert(`${error.response.data.message}`);
-        console.error(error );
+        console.error(error);
       }
     },
   });
@@ -109,8 +125,19 @@ const Login = ({ isOpen, handleClose }) => {
               )}
             </Form.Group>
             <div>
-              <Button type="submit" variant="primary" className="mx-2">
-                Ingresar
+              <Button
+                type="submit"
+                variant="primary"
+                className="mx-2"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="spinner-grow" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>Ingresar</>
+                )}
               </Button>
               <Button
                 variant="secondary"
